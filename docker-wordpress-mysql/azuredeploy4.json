@@ -58,7 +58,7 @@
     "vmName": "MyDockerVM",
     "vmSize": "Standard_D1",
     "virtualNetworkName": "MyVNET",
-	"nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]",
+    "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]",
     "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
   },
   "resources": [
