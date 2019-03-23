@@ -59,7 +59,7 @@
     "vmName": "MyDockerVM",
     "vmSize": "Standard_D1",
     "virtualNetworkName": "MyVNET",
-	"nsgID": "[resourceId('/subscriptions/322805e7-c587-4a64-ad97-9e62ba98a8e1/resourceGroups/MI-NetworkRG/providers/Microsoft.Network/networkSecurityGroups/MITRE-Only-Inbound')]",
+	"nsgID": "[resourceId(variables('rgName'), 'Microsoft.Network/networkSecurityGroups', variables('nsgName'))]",
     "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
   },
   "resources": [
@@ -104,7 +104,7 @@
             "properties": {
               "addressPrefix": "[variables('subnetPrefix')]",
               "networkSecurityGroup": {
-                "id": "/subscriptions/322805e7-c587-4a64-ad97-9e62ba98a8e1/resourceGroups/MI-NetworkRG/providers/Microsoft.Network/networkSecurityGroups/MITRE-Only-Inbound"
+                "id": "[resourceId(variables('rgName'), 'Microsoft.Network/networkSecurityGroups', variables('nsgName'))]"
               }
             }
           }
