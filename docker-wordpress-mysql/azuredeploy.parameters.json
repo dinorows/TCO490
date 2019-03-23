@@ -3,19 +3,19 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "newStorageAccountName": {
-            "value": "GEN-UNIQUE"
+            "value": "dinovhds01"
         },
         "mysqlPassword": {
-            "value": "GEN-PASSWORD"
+            "value": "My5q1P@s5w0rd!"
         },
         "adminUsername": {
-            "value": "GEN-UNIQUE"
+            "value": "dino"
         },
         "adminPassword": {
-            "value": "GEN-PASSWORD"
+            "value": "passw0rd12345!"
         },
         "dnsNameForPublicIP": {
-            "value": "GEN-UNIQUE"
+            "value": "dinopublicip617"
         }
     }
 }
