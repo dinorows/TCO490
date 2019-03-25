@@ -87,7 +87,7 @@
       "name": "[variables('virtualNetworkName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[variables('nsgID')]"
+
       ],
       "properties": {
         "addressSpace": {
