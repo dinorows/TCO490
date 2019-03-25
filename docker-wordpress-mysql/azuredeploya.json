@@ -45,8 +45,6 @@
     "imageOffer": "UbuntuServer",
     "ubuntuOSVersion": "16.04.0-LTS",
     "OSDiskName": "osdiskfordockersimple",
-    "rgName": "MI-NetworkRG",
-    "nsgName": "MITRE-Only-Inbound",
     "nicName": "myVMNic",
     "extensionName": "DockerExtension",
     "addressPrefix": "10.0.0.0/16",
