@@ -46,6 +46,7 @@
     "ubuntuOSVersion": "16.04.0-LTS",
     "OSDiskName": "osdiskfordockersimple",
     "nicName": "myVMNic",
+    "myName": "dino",
     "extensionName": "DockerExtension",
     "addressPrefix": "10.0.0.0/16",
     "subnetName": "Subnet",
