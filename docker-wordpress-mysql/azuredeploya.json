@@ -59,7 +59,6 @@
     "vmName": "MyDockerVM",
     "vmSize": "Standard_D1",
     "virtualNetworkName": "MyVNET",
-	"nsgID": "[resourceId('MI-NetworkRG', 'Microsoft.Network/networkSecurityGroups', 'MITRE-Only-Inbound')]",
     "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
   },
   "resources": [
