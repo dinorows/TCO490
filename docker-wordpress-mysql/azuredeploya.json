@@ -104,7 +104,7 @@
             "properties": {
               "addressPrefix": "[variables('subnetPrefix')]",
               "networkSecurityGroup": {
- 
+			  
               }
             }
           }
@@ -260,6 +260,6 @@
           }
         }
       }
-}
     }
   ]
+}
