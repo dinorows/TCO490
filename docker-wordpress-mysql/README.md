@@ -16,7 +16,7 @@ This template is configured for AzureUSGovernment, and specifically for MI TCO49
 probably work work outside of that subscription, but if it doesn't I don't know who wrote this :-)
 
 Command line (remove CRs):
-
+az group create -l usgovvirginia -n dinoarmtest02
 az group deployment create -n <dino>-docker-wordpress-mysql --resource-group dinoarmtest02
 --template-uri https://raw.githubusercontent.com/dinorows/TCO490/master/docker-wordpress-mysql/azuredeployi.json
 --parameters "{'newStorageAccountName': {'value': '<dino>vhds01'},
