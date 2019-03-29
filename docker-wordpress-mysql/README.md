@@ -17,11 +17,13 @@ probably work work outside of that subscription, but if it doesn't I don't know 
 
 Command line (remove CRs):
 
-az group deployment validate --resource-group dinoarmtest01 --template-uri 
-https://raw.githubusercontent.com/dinorows/TCO490/master/docker-wordpress-mysql/azuredeployi.json 
---parameters "{'newStorageAccountName': {'value': 'dinovhds01'},'mysqlPassword': {'value': 
-'My5q1P@s5w0rd!'},'adminUsername': {'value': 'dino'},'adminPassword': {'value':'passw0rd12345!'},
-'dnsNameForPublicIP': {'value': 'dinopublicip617'}}"
+az group deployment create -n <dino>-docker-wordpress-mysql --resource-group dinoarmtest02
+--template-uri https://raw.githubusercontent.com/dinorows/TCO490/master/docker-wordpress-mysql/azuredeployi.json
+--parameters "{'newStorageAccountName': {'value': '<dino>vhds01'},
+'mysqlPassword': {'value': 'My5q1P@s5w0rd!'},'adminUsername': {'value': 'dino'},
+'adminPassword': {'value':'passw0rd12345!'},'dnsNameForPublicIP': {'value': '<dino>publicip617'},
+'myVNETName': {'value': '<dino>-VNET-dwm'},'myNicName': {'value': '<dino>-Nic-dwm'},
+'myPublicIP': {'value': '<dino>-publicIP-dwm'},'myVMName': {'value': '<dino>-VM-dwm'}}"
 
 Note that it's azuredeployi.json that you're deploying, not azuredeploy.json nor all the other failed
 attempts. Why did I keep them here? For everyone to bear witness to the pain I went through for y'all 
