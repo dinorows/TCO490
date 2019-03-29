@@ -23,6 +23,10 @@ https://raw.githubusercontent.com/dinorows/TCO490/master/docker-wordpress-mysql/
 'My5q1P@s5w0rd!'},'adminUsername': {'value': 'dino'},'adminPassword': {'value':'passw0rd12345!'},
 'dnsNameForPublicIP': {'value': 'dinopublicip617'}}"
 
+Note that it's azuredeployi.json that you're deploying, not azuredeploy.json nor all the other failed
+attempts. Why did I keep them here? For everyone to bear witness to the pain I went through for y'all 
+to enable deployment with a Network Security Group from another resource group outside of my control.
+
 Note that the azure deploy template contains a custom script extension version 2 for Linux machines
 that installs docker and docker-compose, as well as references a custom docker-compose .yml script 
 to install and hook up a wordpress and a mysql container! See here: 
