@@ -33,7 +33,7 @@ az group deployment create -n <dino>-docker-wordpress-mysql --resource-group din
 'myVNETName': {'value': '[dino]-VNET-dwm'},'myNicName': {'value': '[dino]-Nic-dwm'},
 'myPublicIP': {'value': '[dino]-publicIP-dwm'},'myVMName': {'value': '[dino]-VM-dwm'}}"
 
-Note that wherever it says [dino] you need to replace [dino] with your name without the []. So for example: bhaines
+Note that wherever it says [dino] you need to replace [dino] with your name without the []. So for example: bhaines.
 If it says dino without the [], then you can leave dino in, or, optionally, replace it with anything else.
 
 Note that it's azuredeployi.json that you're deploying, not azuredeploy.json nor all the other failed
