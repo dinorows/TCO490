@@ -25,7 +25,7 @@ Note that wherever it says [dino] you need to replace [dino] with your name with
 
 Deploy azure template:
 
-az group deployment create -n <dino>-docker-wordpress-mysql --resource-group dinoarmtest02
+az group deployment create -n [dino]-docker-wordpress-mysql --resource-group dinoarmtest02
 --template-uri https://raw.githubusercontent.com/dinorows/TCO490/master/docker-wordpress-mysql/azuredeployi.json
 --parameters "{'newStorageAccountName': {'value': '[dino]vhds01'},
 'mysqlPassword': {'value': 'My5q1P@s5w0rd!'},'adminUsername': {'value': 'dino'},
