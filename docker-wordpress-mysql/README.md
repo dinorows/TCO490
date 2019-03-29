@@ -32,5 +32,6 @@ After deployment and following container install and initialization, WordPress s
 port 8000 of your Docker Host, and you can complete the “famous five-minute installation” as a 
 WordPress administrator.
 
-To access first time and configure: #http://<vm-publicip>:8000 
-To administer thereafter: #http://<vm-publicip>:8000/wp-admin/
+To access first time and configure: http://<vm-publicip>:8000 
+
+To administer thereafter: http://<vm-publicip>:8000/wp-admin/
