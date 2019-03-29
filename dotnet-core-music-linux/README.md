@@ -12,7 +12,7 @@ This template deploys a two tier demo application and all necessary infrastructu
 The deployment command line would be something like this (minus the CRs):
 
 az group deployment create -n dotnet-core-music-linux --resource-group dinoarmtest02 
---template-uri https://raw.githubusercontent.com/dinorows/TCO490/master/dotnet-core-music-linux/azuredeploy.json 
+--template-uri https://raw.githubusercontent.com/dinorows/TCO490/master/dotnet-core-music-linux/azuredeploy2.json 
 --parameters "{'sshKeyData': {'value': 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAC<...>bw== dino@abc.fgh'},
 'sqlAdminPassword': {'value': 'My5q1P@s5w0rd!'},'adminUsername': {'value': 'dino'},
 'numberOfInstances': {'value':2},'publicipaddressDnsName': {'value': '<dino>publicip978'}}"
