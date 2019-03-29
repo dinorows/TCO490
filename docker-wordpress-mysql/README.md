@@ -29,11 +29,12 @@ az group deployment create -n <dino>-docker-wordpress-mysql --resource-group din
 --template-uri https://raw.githubusercontent.com/dinorows/TCO490/master/docker-wordpress-mysql/azuredeployi.json
 --parameters "{'newStorageAccountName': {'value': '<dino>vhds01'},
 'mysqlPassword': {'value': 'My5q1P@s5w0rd!'},'adminUsername': {'value': 'dino'},
-'adminPassword': {'value':'passw0rd12345!'},'dnsNameForPublicIP': {'value': '[dino>]publicip617'},
+'adminPassword': {'value':'passw0rd12345!'},'dnsNameForPublicIP': {'value': '[dino]publicip617'},
 'myVNETName': {'value': '[dino]-VNET-dwm'},'myNicName': {'value': '[dino]-Nic-dwm'},
 'myPublicIP': {'value': '[dino]-publicIP-dwm'},'myVMName': {'value': '[dino]-VM-dwm'}}"
 
 Note that wherever it says [dino] you need to replace [dino] with your name without the []. So for example: bhaines
+If it says dino without the [], then you can leave dino in, or, optionally, replace it with anything else.
 
 Note that it's azuredeployi.json that you're deploying, not azuredeploy.json nor all the other failed
 attempts. Why did I keep them here? For everyone to bear witness to the pain I went through for y'all 
