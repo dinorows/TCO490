@@ -15,8 +15,14 @@ which are created using [Docker Compose].
 This template is configured for AzureUSGovernment, and specifically for MI TCO490, Spring 2019. Will 
 probably work work outside of that subscription, but if it doesn't I don't know who wrote this :-)
 
-Command line (remove CRs):
+Command lines (remove CRs from commands below):
+
+Create resource group:
+
 az group create -l usgovvirginia -n dinoarmtest02
+
+Deploy azure template:
+
 az group deployment create -n <dino>-docker-wordpress-mysql --resource-group dinoarmtest02
 --template-uri https://raw.githubusercontent.com/dinorows/TCO490/master/docker-wordpress-mysql/azuredeployi.json
 --parameters "{'newStorageAccountName': {'value': '<dino>vhds01'},
