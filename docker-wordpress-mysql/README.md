@@ -52,3 +52,5 @@ WordPress administrator.
 To access first time and configure: http://[vm-publicip]:8000 
 
 To administer thereafter: http://[vm-publicip]:8000/wp-admin/
+
+You should obtain your VM's public ip from the Azure portal, and replace [vm-publicip] with it. For example, 123.45.67.89
