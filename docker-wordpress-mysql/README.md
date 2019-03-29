@@ -19,7 +19,9 @@ Command lines (remove CRs from commands below):
 
 Create resource group:
 
-az group create -l usgovvirginia -n dinoarmtest02
+az group create -l usgovvirginia -n [dino]armtest02
+
+Note that wherever it says [dino] you need to replace [dino] with your name without the []. So for example: bhaines
 
 Deploy azure template:
 
