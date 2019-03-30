@@ -19,15 +19,15 @@
 mkdir my_wordpress && cd my_wordpress
 #sudo apt-get install lynx
 #lynx -dump https://raw.githubusercontent.com/dinorows/TCO490/master/docker-wordpress-mysql/docker-compose.yml > docker-compose.yml
-sudo wget https://raw.githubusercontent.com/dinorows/TCO490/master/docker-wordpress-mysql/docker-compose.yml -O .
+sudo wget https://raw.githubusercontent.com/dinorows/TCO490/master/docker-wordpress-mysql/docker-compose.yml
 
 # update
 sudo apt-get update
-sudo apt-get install curl
+sudo apt-get -y -q install curl
 
 # install docker
 #sudo curl -fsSL https://get.docker.com/ | sh
-sudo apt-get install docker.io
+sudo apt-get -y -q install docker.io
 
 # You can check that the installation was successful with the following test program:
 #sudo docker run hello-world
