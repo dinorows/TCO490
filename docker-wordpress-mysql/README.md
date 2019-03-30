@@ -26,7 +26,7 @@ Note that wherever it says [dino] you need to replace [dino] with your name with
 Deploy azure template:
 
 az group deployment create -n [dino]-docker-wordpress-mysql --resource-group dinoarmtest02
---template-uri https://raw.githubusercontent.com/dinorows/TCO490/master/docker-wordpress-mysql/azuredeployj.json
+--template-uri https://raw.githubusercontent.com/dinorows/TCO490/master/docker-wordpress-mysql/azuredeployk.json
 --parameters "{'newStorageAccountName': {'value': '[dino]vhds02'},
 'mysqlPassword': {'value': 'My5q1P@s5w0rd!'},'adminUsername': {'value': 'dino'},
 'adminPassword': {'value':'passw0rd12345!'},'dnsNameForPublicIP': {'value': '[dino]publicip781'},
@@ -36,7 +36,7 @@ az group deployment create -n [dino]-docker-wordpress-mysql --resource-group din
 Note that wherever it says [dino] you need to replace [dino] with your name without the []. So for example: bhaines.
 If it says dino without the [], then you can leave dino in, or, optionally, replace it with anything else.
 
-Note that it's azuredeployj.json that you're deploying, not azuredeploy.json nor all the other failed
+Note that it's azuredeployk.json that you're deploying, not azuredeploy.json nor all the other failed
 attempts. Why did I keep them here? For everyone to bear witness to the pain I went through for y'all 
 to enable deployment with a Network Security Group from another resource group outside of my control.
 
@@ -54,3 +54,6 @@ To access first time and configure: http://[vm-publicip]:8000
 To administer thereafter: http://[vm-publicip]:8000/wp-admin/
 
 You should obtain your VM's public ip from the Azure portal, and replace [vm-publicip] with it. For example, 123.45.67.89
+
+Note to self: azuredeployj.json lacks the extension to install and deploy the docker solution, so
+use that deployment to demo what's going to happen with students' VMs in class.
