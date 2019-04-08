@@ -1,0 +1,123 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "adminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Secure adminPassword"
+      }
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "spvmVNET",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "usgovvirginia",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {},
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "10.0.0.0/16"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "spvmSubnet",
+            "properties": {
+              "addressPrefix": "10.0.0.0/24"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2018-01-01",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "spvmPublicIP",
+      "location": "usgovvirginia",
+      "tags": {},
+      "dependsOn": [],
+      "properties": {
+        "publicIPAllocationMethod": null
+      }
+    },
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "spvmVMNic",
+      "location": "usgovvirginia",
+      "tags": {},
+      "dependsOn": [
+        "Microsoft.Network/virtualNetworks/spvmVNET",
+        "Microsoft.Network/publicIpAddresses/spvmPublicIP"
+      ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfigspvm",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "/subscriptions/322805e7-c587-4a64-ad97-9e62ba98a8e1/resourceGroups/dinoSp/providers/Microsoft.Network/virtualNetworks/spvmVNET/subnets/spvmSubnet"
+              },
+              "publicIPAddress": {
+                "id": "/subscriptions/322805e7-c587-4a64-ad97-9e62ba98a8e1/resourceGroups/dinoSp/providers/Microsoft.Network/publicIPAddresses/spvmPublicIP"
+              }
+            }
+          }
+        ],
+        "networkSecurityGroup": {
+          "id": "/subscriptions/322805e7-c587-4a64-ad97-9e62ba98a8e1/resourceGroups/MI-NetworkRG/providers/Microsoft.Network/networkSecurityGroups/MITRE-Only-Inbound"
+        }
+      }
+    },
+    {
+      "apiVersion": "2018-10-01",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "spvm",
+      "location": "usgovvirginia",
+      "tags": {},
+      "dependsOn": [
+        "Microsoft.Network/networkInterfaces/spvmVMNic"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "Standard_D4s_v3"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "/subscriptions/322805e7-c587-4a64-ad97-9e62ba98a8e1/resourceGroups/dinoSp/providers/Microsoft.Network/networkInterfaces/spvmVMNic"
+            }
+          ]
+        },
+        "storageProfile": {
+          "osDisk": {
+            "createOption": "fromImage",
+            "name": null,
+            "caching": "ReadWrite",
+            "managedDisk": {
+              "storageAccountType": "StandardSSD_LRS"
+            }
+          },
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2012-R2-Datacenter",
+            "version": "latest"
+          }
+        },
+        "osProfile": {
+          "computerName": "spvm",
+          "adminUsername": "dino",
+          "adminPassword": "[parameters('adminPassword')]"
+        }
+      }
+    }
+  ],
+  "outputs": {}
+}
