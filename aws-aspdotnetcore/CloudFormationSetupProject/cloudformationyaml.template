@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: '2010-09-09'
-Description: ''
+Description: 'CI/CD pipeline that uploads a Web site to an AWS instance and makes it available to the public. **WARNING** There is currently an issue following step 08: I would have liked a step 09 to run the following command: powershell.exe -Command "ConvertTo-WebApplication -PSPath `IIS:\Sites\Default Web Site\mysong`" but this does not work and the convert-to-application needs to be done manually in IIS.'
 Parameters:
   PipelineBucket:
     Type: String
@@ -16,7 +16,7 @@ Parameters:
     Default: t2.small
   EC2KeyName:
     Type: AWS::EC2::KeyPair::KeyName
-    Description: The EC2 key pair name to use for remoting into the application servers
+    Description: The EC2 key pair name to use for remoting into the application servers, **without the .pem suffix!**
   OpenRemoteDesktopPort:
     Type: String
     Description: If set to Yes the RDP port will be open. This is useful for debugging
@@ -63,26 +63,15 @@ Resources:
         config:
           commands:
             01-download-dotnetsdk:
-              command:
-                Fn::Join:
-                - ''
-                - - powershell.exe -Command "((new-object net.webclient).DownloadFile('https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-2.1.604-windows-x64-installer',
-                    'C:\cfn\dotnet-sdk-2.1.604-win-x64.exe'))"
+              command: powershell.exe -Command "((new-object net.webclient).DownloadFile('https://download.visualstudio.microsoft.com/download/pr/5198af04-dc21-475f-8735-b227eff107e6/a297d10b0a327fdc7de5647393faef09/dotnet-sdk-2.1.604-win-x64.exe', 'C:\cfn\dotnet-sdk-2.1.604-win-x64.exe'))"
               cwd: C:/cfn
               waitAfterCompletion: 0
             02-download-dotnet-cli-hosting-bundle:
-              command:
-                Fn::Join:
-                - ''
-                - - 'powershell.exe -Command "Read-S3Object '
-                  - "-BucketName georgemichaellastxmasinstallbucket "
-                  - "-Key dotnet-hosting-2.1.11-win.exe "
-                  - -File dotnet-hosting-2.1.11-win.exe"
+              command: powershell.exe -Command "Read-S3Object -BucketName georgemichaellastxmasinstallbucket -Key dotnet-hosting-2.1.11-win.exe -File dotnet-hosting-2.1.11-win.exe"
               cwd: C:/cfn
               waitAfterCompletion: 0
             03-install-dotnet-cli-hosting-bundle:
-              command: C:\cfn\dotnet-hosting-2.1.11-win.exe /install /quiet /log
-                C:\cfn\dotnet-hosting-2.1.11-win.txt
+              command: C:\cfn\dotnet-hosting-2.1.11-win.exe /install /quiet /log C:\cfn\dotnet-hosting-2.1.11-win.txt
               ignoreErrors: 'true'
               waitAfterCompletion: 0
             04-import-service-module:
@@ -90,45 +79,33 @@ Resources:
               ignoreErrors: 'true'
               waitAfterCompletion: 0
             05-install-web-server:
-              command: powershell.exe -Command Install-WindowsFeature -name Web-Server
-                -IncludeManagementTools
+              command: powershell.exe -Command Install-WindowsFeature -name Web-Server -IncludeManagementTools
               ignoreErrors: 'true'
               waitAfterCompletion: 0
-            06-install-application:
-              command: powershell.exe -Command Set-ItemProperty 'IIS:\sites\Default Web Site' -Name physicalPath -Value c:\NetCoreApp\publish
+            06-create-folder:
+              command: powershell.exe -Command "New-Item -Path 'c:\' -Name 'NetCoreApp' -ItemType 'directory'"
               ignoreErrors: 'true'
               waitAfterCompletion: 0
-            07-create-app-pool:
-              command: powershell.exe -Command New-WebAppPool -Name TestAppPool
+            07-create-folder:
+              command: powershell.exe -Command "New-Item -Path 'c:\NetCoreApp' -Name 'publish' -ItemType 'directory'"
               ignoreErrors: 'true'
-              waitAfterCompletion: 0              
-            08-update-app-pool-managedRuntimeVersion:
-              command: powershell.exe -Command Set-ItemProperty 'IIS:\AppPools\TestAppPool' -Name managedRuntimeVersion -Value ''
+              waitAfterCompletion: 0
+            08-install-virtual-directory:
+              command: powershell.exe -Command "New-WebVirtualDirectory -Site 'Default Web Site' -Name 'mysong' -PhysicalPath 'c:/NetCoreApp/publish'"
               ignoreErrors: 'true'
-              waitAfterCompletion: 0              
-            09-update-app-pool-managedPipelineMode:
-              command: powershell.exe -Command Set-ItemProperty 'IIS:\AppPools\TestAppPool' -Name managedPipelineMode -Value 'Integrated'
-              ignoreErrors: 'true'
-              waitAfterCompletion: 0              
-            10-connect-app-pool-to-netcoreapp:
-              command: powershell.exe -Command Set-ItemProperty 'IIS:\Sites\Default Web Site' -Name ApplicationPool -Value 'TestAppPool'
-              ignoreErrors: 'true'
-              waitAfterCompletion: 0              
-            11-download-host-agent:
+              waitAfterCompletion: 0                        
+            09-download-host-agent:
               command:
                 Fn::Join:
                 - ''
-                - - 'powershell.exe -Command "Read-S3Object '
-                  - "-BucketName aws-codedeploy-us-east-1 "
-                  - "-Key latest/codedeploy-agent.msi "
-                  - -File codedeploy-agent.msi"
+                - - powershell.exe -Command "Read-S3Object -BucketName 'aws-codedeploy-us-east-1' -Key 'latest/codedeploy-agent.msi' -File 'codedeploy-agent.msi'"
               cwd: C:/cfn
               waitAfterCompletion: 0
-            12-install-host-agent:
+            10-install-host-agent:
               command: C:\cfn\codedeploy-agent.msi /quiet /l C:\cfn\host-agent-install-log.txt
               ignoreErrors: 'true'
               waitAfterCompletion: 0
-            13-signal-ready:
+            11-signal-ready:
               command:
                 Fn::Join:
                 - ''
@@ -380,3 +357,4 @@ Outputs:
       Fn::GetAtt:
       - CodeDeployTrustRole
       - Arn
+      
