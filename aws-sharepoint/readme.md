@@ -1,0 +1,1 @@
+Dino2_Windows_Single_Server_SharePoint_Foundation_YAML is for us-gov-east amazon cloud. The other ones may be public cloud.
