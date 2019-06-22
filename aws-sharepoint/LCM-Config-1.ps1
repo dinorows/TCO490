@@ -16,7 +16,10 @@ configuration LCMConfig
 Set-ExecutionPolicy RemoteSigned -Force
 
 $DscCertThumbprint = (get-childitem -path cert:\LocalMachine\My | where { $_.subject -eq "CN=AWSQSDscEncryptCert" }).Thumbprint
-    
+
+#~dk, upon advice from Adam Yee
+$DscCertThumbprint = [system.String]::Join("", $DscCertThumbprint)
+
 #Generates MOF File for LCM
 LCMConfig -OutputPath 'C:\AWSQuickstart\LCMConfig'
 
